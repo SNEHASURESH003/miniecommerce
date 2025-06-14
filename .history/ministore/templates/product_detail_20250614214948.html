@@ -1,0 +1,31 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+<div class="row">
+  <div class="col-md-6">
+    <img src="{{ product.image.url }}" class="img-fluid" />
+  </div>
+  <div class="col-md-6">
+    <a href="{% url 'dashboard' %}" class="btn mb-3" style="background-color:rgba(223, 33, 227, 0.76); color: white; border: none;">← Back to Dashboard</a>
+
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <p><strong>Price:</strong> $<span id="unit_price">{{ product.price }}</span></p>
+    <form method="post" action="{% url 'place_order' product.id %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" min="1" max="{{ product.stock }}" value="1" class="form-control w-25">
+      </div>
+      <p>Total: $<span id="total">{{ product.price }}</span></p>
+      <button type="submit" class="btn mb-3" style="background-color:rgba(223, 33, 227, 0.76); color: white; border: none;"" >Place Order</button>
+    </form>
+  </div>
+</div>
+<script>
+document.getElementById('quantity').addEventListener('input', function() {
+  let qty = this.value;
+  let price = parseFloat(document.getElementById('unit_price').innerText);
+  document.getElementById('total').innerText = (qty * price).toFixed(2);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+
+<style>
+  body {
+    background-color: #0f0f0f;
+    color: white;
+  }
+
+  .order-card {
+    background: rgba(174, 51, 145, 0.07);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    color: white;
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(255, 0, 255, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .order-card h3 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #ffc107;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 193, 7, 0.3);
+  }
+
+  .order-card .list-group-item {
+    background-color: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.15);
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .btn-accent {
+    background-color: rgba(223, 33, 227, 0.76);
+    color: white;
+    border: none;
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-accent:hover {
+    background-color: rgba(200, 20, 220, 0.9);
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="order-card">
+  <h3>Order Summary</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Product: {{ order.product.name }}</li>
+    <li class="list-group-item">Quantity: {{ order.quantity }}</li>
+    <li class="list-group-item">Price per unit: ${{ order.product.price }}</li>
+    <li class="list-group-item">Total Price: ${{ order.total_price }}</li>
+  </ul>
+</div>
+
+<a href="{% url 'dashboard' %}" class="btn btn-accent">← Back to Dashboard</a>
+
+{% endblock %}

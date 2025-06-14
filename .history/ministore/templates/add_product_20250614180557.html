@@ -1,0 +1,8 @@
+
+<h2 class="mb-4">Add New Product</h2>
+<form method="post" enctype="multipart/form-data" class="w-75">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Add Product</button>
+</form>
+{% endblock %}

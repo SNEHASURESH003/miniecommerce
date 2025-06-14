@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+<h2 class="text-center text-capitalize">Admin Dashboard</h2>
+
+<a href="{% url 'add_product' %}" class="btn mb-3 text-white" style="background-color: rgb(110, 9, 121); border: none;">
+  Add Product
+</a>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th><th>Price</th><th>Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td>{{ product.name }}</td>
+      <td>${{ product.price }}</td>
+      <td>{{ product.stock }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

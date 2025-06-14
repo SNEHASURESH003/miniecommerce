@@ -1,0 +1,97 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+
+<style>
+  body {
+    background-color: #0f0f0f;
+    color: #fff;
+  }
+
+  .product-card {
+    background: linear-gradient(135deg, #1a001f, #2b0033);
+    border-radius: 20px;
+    padding: 2rem;
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+  }
+
+  .btn-accent {
+    background-color: rgba(223, 33, 227, 0.76);
+    color: white;
+    border: none;
+    transition: 0.3s ease;
+  }
+
+  .btn-accent:hover {
+    background-color: rgba(200, 20, 220, 0.9);
+    transform: scale(1.02);
+  }
+
+  .form-control {
+    background-color: #1e1e1e;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  h3 {
+    color: #ff00ff;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 1rem;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
+  }
+
+  .product-info {
+    text-align: center;
+  }
+
+  .product-image {
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    max-height: 300px;
+    object-fit: cover;
+  }
+
+  #total {
+    color: #ffc107;
+    font-weight: bold;
+  }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card product-card w-100" style="max-width: 800px;">
+    <div class="row g-4">
+      <div class="col-md-6 text-center">
+        <img src="{{ product.image.url }}" class="img-fluid product-image" alt="{{ product.name }}">
+      </div>
+      <div class="col-md-6">
+        <div class="product-info">
+          <a href="{% url 'dashboard' %}" class="btn btn-accent mb-4">← Back to Dashboard</a>
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <p><strong>Price:</strong> $<span id="unit_price">{{ product.price }}</span></p>
+
+          <form method="post" action="{% url 'place_order' product.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="quantity">Quantity:</label>
+              <input type="number" name="quantity" id="quantity" min="1" max="{{ product.stock }}" value="1" class="form-control w-50 mx-auto">
+            </div>
+            <p>Total: $<span id="total">{{ product.price }}</span></p>
+            <button type="submit" class="btn btn-accent w-100">Place Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('quantity').addEventListener('input', function () {
+    let qty = this.value;
+    let price = parseFloat(document.getElementById('unit_price').innerText);
+    document.getElementById('total').innerText = (qty * price).toFixed(2);
+  });
+</script>
+
+{% endblock %}

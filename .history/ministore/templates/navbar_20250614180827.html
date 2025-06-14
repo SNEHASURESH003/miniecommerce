@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">Shop</a>
+    <div class="ms-auto">
+   
+        {% if user.is_staff %}
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-light">Admin Dashboard</a>
+        {% endif %}
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-light">Register</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,77 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+
+<style>
+  body {
+    background-color: #121212;
+    color: white;
+  }
+
+  h2 {
+    color: #ffc107;
+    text-shadow: 1px 1px 2px rgba(255, 193, 7, 0.2);
+    font-weight: bold;
+    margin-top: 30px;
+    letter-spacing: 1px;
+  }
+
+  .btn-add {
+    background-color: rgb(110, 9, 121);
+    border: none;
+  }
+
+  .btn-add:hover {
+    background-color: rgb(140, 20, 150);
+  }
+
+  .custom-table {
+    background-color: rgba(255, 255, 255, 0.05); /* Transparent */
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    overflow: hidden;
+    color: white;
+    box-shadow: 0 8px 24px rgba(255, 0, 255, 0.1);
+  }
+
+  .custom-table th {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffc107;
+    border: none;
+    text-transform: uppercase;
+  }
+
+  .custom-table td {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .custom-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+</style>
+
+<h2 class="text-center text-uppercase">Admin Dashboard</h2>
+
+<div class="d-flex justify-content-end mb-3">
+  <a href="{% url 'add_product' %}" class="btn btn-add text-white">Add Product</a>
+</div>
+
+<table class="table custom-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td>{{ product.name }}</td>
+      <td>${{ product.price }}</td>
+      <td>{{ product.stock }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

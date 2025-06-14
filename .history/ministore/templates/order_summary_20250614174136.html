@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Order Summary</h3>
+<ul class="list-group">
+  <li class="list-group-item">Product: {{ order.product.name }}</li>
+  <li class="list-group-item">Quantity: {{ order.quantity }}</li>
+  <li class="list-group-item">Price per unit: ${{ order.product.price }}</li>
+  <li class="list-group-item">Total: ${{ order.total_price }}</li>
+</ul>
+{% endblock %}

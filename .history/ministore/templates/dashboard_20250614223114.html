@@ -1,0 +1,84 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+
+<style>
+  body {
+    background-color: #0f0f0f;
+  }
+
+  .product-card {
+    background: linear-gradient(135deg, #1a001f, #2b0033);
+    color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 0, 255, 0.2);
+  }
+
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.4);
+  }
+
+  .product-card .btn {
+    background-color: rgba(255, 0, 255, 0.6);
+    color: white;
+    border: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .product-card .btn:hover {
+    background-color: rgba(255, 0, 255, 0.9);
+  }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+
+  h2.section-title {
+    color: #ff00ff;
+    font-size: 2.7rem;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.4);
+  }
+
+  .row {
+    row-gap: 30px;
+  }
+
+  .text-white {
+    color: rgba(255, 255, 255, 0.8);
+  }
+</style>
+
+<h2 class="section-title">Welcome to the Store</h2>
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-sm-6 col-md-4 col-lg-3">
+    <div class="card h-100 product-card">
+      <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text text-truncate">{{ product.description }}</p>
+          <p><strong>${{ product.price }}</strong></p>
+        </div>
+        <a href="{% url 'product_detail' product.id %}" class="btn mt-2 w-100">View Details</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-white">No products available at the moment.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}

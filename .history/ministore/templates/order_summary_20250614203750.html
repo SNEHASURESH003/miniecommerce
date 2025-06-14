@@ -1,0 +1,43 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+
+<style>
+  .order-card {
+    background: rgba(174, 51, 145, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .order-card h3 {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    font-weight: bold;
+    color: #ffc107;
+  }
+
+  .order-card .list-group-item {
+    background-color: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+  }
+</style>
+
+<div class="order-card">
+  <h3>Order Summary</h3>
+  <ul class="list-group">
+    <li class="list-group-item">Product: {{ order.product.name }}</li>
+    <li class="list-group-item">Quantity: {{ order.quantity }}</li>
+    <li class="list-group-item">Price per unit: ${{ order.product.price }}</li>
+    <li class="list-group-item">Total: ${{ order.total_price }}</li>
+  </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'layout/base.html' %}
+{% block 'content' %}
+
+<style>
+  .product-card {
+    background: linear-gradient(135deg, rgba(110, 9, 121, 0.9), rgba(47, 0, 77, 0.9));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .product-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .product-card .btn {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+  }
+
+  .product-card .btn:hover {
+    background-color: #e0a800;
+  }
+</style>
+
+<h2 class="mb-4 text-center text-uppercase text-white">Welcome to the Store</h2>
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm product-card">
+      <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text text-truncate">{{ product.description }}</p>
+        <p><strong>${{ product.price }}</strong></p>
+        <a href="{% url 'product_detail' product.id %}" class="btn w-100">View Details</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-white">No products available at the moment.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
